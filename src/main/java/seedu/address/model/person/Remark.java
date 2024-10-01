@@ -5,10 +5,21 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is always valid
  */
 public class Remark {
+    public static final Remark EMPTY_REMARK = Remark.of("");
     public final String value;
+    /**
+     * Constructor of Remark using a string as remark value
+     * */
     public Remark(String remark) {
         requireNonNull(remark);
         value = remark;
+    }
+
+    public static Remark of(String remark) {
+        return new Remark(remark);
+    }
+    public String getValue() {
+        return this.value;
     }
     @Override
     public String toString() {

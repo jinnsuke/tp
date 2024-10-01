@@ -21,14 +21,13 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_REMARK = "She likes aardvarks";
-
+    public static final String DEFAULT_REMARK = "";
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
-    private Remark remark;
     private Set<Tag> tags;
+    private Remark remark;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -38,8 +37,8 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
+        remark = Remark.EMPTY_REMARK;
     }
 
     /**
@@ -50,8 +49,8 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        remark = personToCopy.getRemark();
         tags = new HashSet<>(personToCopy.getTags());
+        remark = personToCopy.getRemark();
     }
 
     /**
@@ -61,15 +60,6 @@ public class PersonBuilder {
         this.name = new Name(name);
         return this;
     }
-
-    /**
-     * Sets the {@code Remark} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withRemark(String remark) {
-        this.remark = new Remark(remark);
-        return this;
-    }
-
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
@@ -100,6 +90,13 @@ public class PersonBuilder {
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+    /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRemark(String remark) {
+        this.remark = new Remark(remark);
         return this;
     }
 
