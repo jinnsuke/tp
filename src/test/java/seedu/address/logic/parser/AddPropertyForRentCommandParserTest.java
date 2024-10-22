@@ -1,7 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.commands.AddPropertyForRentCommand.MESSAGE_MISSING_FIELD;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.LISTING_DATE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.SIZE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.TOWN_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TOWN_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -24,8 +33,8 @@ public class AddPropertyForRentCommandParserTest {
                 "123 Main St", "Downtown", "Condo", 100.5, 2, 2,
                 3000.0, Optional.of("Near park"), LocalDate.of(2024, 12, 1));
 
-        String userInput = ADDRESS_DESC_AMY + TOWN_DESC_AMY + TYPE_DESC + SIZE_DESC +
-                " b/2 b/2 " + PRICE_DESC + REMARK_DESC_AMY + " af/2024-12-01";
+        String userInput = ADDRESS_DESC_AMY + TOWN_DESC_AMY + TYPE_DESC + SIZE_DESC
+                + " b/2 b/2 " + PRICE_DESC + REMARK_DESC_AMY + " af/2024-12-01";
 
         assertParseSuccess(parser, userInput, new AddPropertyForRentCommand(expectedProperty));
     }
@@ -59,16 +68,16 @@ public class AddPropertyForRentCommandParserTest {
 
     @Test
     public void parse_invalidField_failure() {
-        String userInput = ADDRESS_DESC_AMY + TOWN_DESC_AMY + TYPE_DESC + SIZE_DESC +
-                " b/2 b/2 invalidPrice " + REMARK_DESC_AMY + " af/2024-12-01";
+        String userInput = ADDRESS_DESC_AMY + TOWN_DESC_AMY + TYPE_DESC + SIZE_DESC
+                + " b/2 b/2 invalidPrice " + REMARK_DESC_AMY + " af/2024-12-01";
 
         assertParseFailure(parser, userInput, "Invalid price format.");
     }
 
     @Test
     public void parse_invalidDate_failure() {
-        String userInput = ADDRESS_DESC_AMY + TOWN_DESC_AMY + TYPE_DESC + SIZE_DESC +
-                " b/2 b/2 " + PRICE_DESC + REMARK_DESC_AMY + " af/2024-02-30"; // Invalid date
+        String userInput = ADDRESS_DESC_AMY + TOWN_DESC_AMY + TYPE_DESC + SIZE_DESC
+                + " b/2 b/2 " + PRICE_DESC + REMARK_DESC_AMY + " af/2024-02-30"; // Invalid date
 
         assertParseFailure(parser, userInput, "Invalid date format.");
     }

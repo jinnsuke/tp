@@ -17,12 +17,12 @@ public class CliSyntax {
     public static final Prefix PREFIX_LOG = new Prefix("l/"); // Logs or notes
 
     /* Prefix definitions for Property-related Commands */
-    public static final Prefix PREFIX_TOWN = new Prefix("t/"); // Town or locality
+    public static final Prefix PREFIX_LISTING_DATE = new Prefix("ld/"); // Listing date for property sale
+    public static final Prefix PREFIX_PRICE = new Prefix("pr/"); // Price of property
     public static final Prefix PREFIX_PROPERTY_TYPE = new Prefix("pt/"); // Type of property (e.g., Apartment)
     public static final Prefix PREFIX_SIZE = new Prefix("s/"); // Size in square meters or feet
+    public static final Prefix PREFIX_TOWN = new Prefix("t/"); // Town or locality
     public static final Prefix PREFIX_BEDROOMS = new Prefix("br/"); // Number of bedrooms
     public static final Prefix PREFIX_BATHROOMS = new Prefix("ba/"); // Number of bathrooms
-    public static final Prefix PREFIX_PRICE = new Prefix("pr/"); // Price of property
     public static final Prefix PREFIX_AVAILABLE_FROM = new Prefix("af/"); // Availability date for rental
-    public static final Prefix PREFIX_LISTING_DATE = new Prefix("ld/"); // Listing date for property sale
 }

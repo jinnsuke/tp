@@ -5,16 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTING_DATE; // Assuming you have a prefix for size
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE; // Assuming you have a prefix for price
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE; // Assuming you have a prefix for type
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SIZE; // Assuming you have a prefix for size
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOWN; // Add this line for the town prefix
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE; // Assuming you have a prefix for type
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE; // Assuming you have a prefix for price
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SIZE; // Assuming you have a prefix for size
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTING_DATE; // Assuming you have a prefix for size
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
@@ -28,7 +28,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.property.PropertyForRent; // Assuming you will also need this import
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -98,11 +97,11 @@ public class CommandTestUtil {
     // Add new descriptors for properties
     public static final String TOWN_DESC_AMY = " " + PREFIX_TOWN + VALID_TOWN_AMY;
     public static final String TOWN_DESC_BOB = " " + PREFIX_TOWN + VALID_TOWN_BOB;
-    public static final String TYPE_DESC = " " + PREFIX_PROPERTY_TYPE + VALID_TYPE_AMY; // Adjust according to your needs
+    public static final String TYPE_DESC = " " + PREFIX_PROPERTY_TYPE + VALID_TYPE_AMY;
     public static final String SIZE_DESC = " " + PREFIX_SIZE + VALID_SIZE_AMY; // Adjust according to your needs
     public static final String PRICE_DESC = " " + PREFIX_PRICE + VALID_PRICE_AMY; // Adjust according to your needs
     public static final String VALID_LISTING_DATE = "2024-11-15";
-    public static final String LISTING_DATE_DESC = " " + PREFIX_LISTING_DATE + VALID_LISTING_DATE; // Assuming you have a prefix for listing date
+    public static final String LISTING_DATE_DESC = " " + PREFIX_LISTING_DATE + VALID_LISTING_DATE;
 
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
