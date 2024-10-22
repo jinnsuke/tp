@@ -23,6 +23,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -167,7 +169,38 @@ public class AddCommandTest {
         public void sortPersonsAsc() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasPropertyForSale(PropertyForSale propertyForSale) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPropertyForSale(PropertyForSale propertyForSale) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPropertyForRent(PropertyForRent propertyForRent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPropertyForRent(PropertyForRent propertyForRent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPropertyForSaleList(Predicate<PropertyForSale> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPropertyForRentList(Predicate<PropertyForRent> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
+
     /**
      * A Model stub that contains a single person.
      */
@@ -187,10 +220,12 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accepts the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<PropertyForSale> propertiesForSaleAdded = new ArrayList<>();
+        final ArrayList<PropertyForRent> propertiesForRentAdded = new ArrayList<>();
 
         @Override
         public boolean hasPerson(Person person) {
@@ -208,6 +243,29 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
-    }
 
+        @Override
+        public boolean hasPropertyForSale(PropertyForSale propertyForSale) {
+            requireNonNull(propertyForSale);
+            return propertiesForSaleAdded.stream().anyMatch(propertyForSale::equals);
+        }
+
+        @Override
+        public void addPropertyForSale(PropertyForSale propertyForSale) {
+            requireNonNull(propertyForSale);
+            propertiesForSaleAdded.add(propertyForSale);
+        }
+
+        @Override
+        public boolean hasPropertyForRent(PropertyForRent propertyForRent) {
+            requireNonNull(propertyForRent);
+            return propertiesForRentAdded.stream().anyMatch(propertyForRent::equals);
+        }
+
+        @Override
+        public void addPropertyForRent(PropertyForRent propertyForRent) {
+            requireNonNull(propertyForRent);
+            propertiesForRentAdded.add(propertyForRent);
+        }
+    }
 }

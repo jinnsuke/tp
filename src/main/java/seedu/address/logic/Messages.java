@@ -6,9 +6,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.Person;
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
 
 /**
- * Container for user visible messages.
+ * Container for user-visible messages.
  */
 public class Messages {
 
@@ -24,6 +26,7 @@ public class Messages {
             "%1$s is before the date of creation of this log %2$s!";
     public static final String MESSAGE_NO_ENTRY_ON_DATE = "%1$s has no entry!";
     public static final String MESSAGE_ACTIVITY_LIST_NOT_INITIALIZED = "Activity list not initialized!";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
@@ -57,4 +60,31 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code PropertyForRent} for display to the user.
+     */
+    public static String format(PropertyForRent property) {
+        return String.format(
+                "Property for Rent: %s, Town: %s, Type: %s, Size: %.2f sqm, Bedrooms: %d, Bathrooms: %d, "
+                        + "Price: $%.2f, Available From: %s, Remark: %s",
+                property.getAddress(), property.getTown(), property.getPropertyType(),
+                property.getSize(), property.getNumberOfBedrooms(), property.getNumberOfBathrooms(),
+                property.getPrice(), property.getAvailableFrom(),
+                property.getRemark().orElse("N/A")
+        );
+    }
+
+    /**
+     * Formats the {@code PropertyForSale} for display to the user.
+     */
+    public static String format(PropertyForSale property) {
+        return String.format(
+                "Property for Sale: %s, Town: %s, Type: %s, Size: %.2f sqm, Bedrooms: %d, Bathrooms: %d, "
+                        + "Price: $%.2f, Listing Date: %s, Remark: %s",
+                property.getAddress(), property.getTown(), property.getPropertyType(),
+                property.getSize(), property.getNumberOfBedrooms(), property.getNumberOfBathrooms(),
+                property.getPrice(), property.getListingDate(),
+                property.getRemark().orElse("N/A")
+        );
+    }
 }

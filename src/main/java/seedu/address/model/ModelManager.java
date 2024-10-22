@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +24,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<PropertyForSale> filteredPropertiesForSale;
+    private final FilteredList<PropertyForRent> filteredPropertiesForRent;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +38,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.filteredPropertiesForSale = new FilteredList<>(this.addressBook.getPropertyForSaleList());
+        this.filteredPropertiesForRent = new FilteredList<>(this.addressBook.getPropertyForRentList());
     }
 
     public ModelManager() {
@@ -144,6 +150,44 @@ public class ModelManager implements Model {
     public void sortPersonsDesc() {
         addressBook.sortPersonsDesc(); // Call the sortPersonsDesc method from AddressBook
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS); // Refresh the filtered list after sorting
+    }
+
+    //=========== Property Methods ===========================================================================
+
+    @Override
+    public boolean hasPropertyForSale(PropertyForSale propertyForSale) {
+        requireNonNull(propertyForSale);
+        return addressBook.hasPropertyForSale(propertyForSale);
+    }
+
+    @Override
+    public void addPropertyForSale(PropertyForSale propertyForSale) {
+        addressBook.addPropertyForSale(propertyForSale);
+        updateFilteredPropertyForSaleList(PREDICATE_SHOW_ALL_PROPERTIES_FOR_SALE);
+    }
+
+    @Override
+    public boolean hasPropertyForRent(PropertyForRent propertyForRent) {
+        requireNonNull(propertyForRent);
+        return addressBook.hasPropertyForRent(propertyForRent);
+    }
+
+    @Override
+    public void addPropertyForRent(PropertyForRent propertyForRent) {
+        addressBook.addPropertyForRent(propertyForRent);
+        updateFilteredPropertyForRentList(PREDICATE_SHOW_ALL_PROPERTIES_FOR_RENT);
+    }
+
+    @Override
+    public void updateFilteredPropertyForSaleList(Predicate<PropertyForSale> predicate) {
+        requireNonNull(predicate);
+        filteredPropertiesForSale.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredPropertyForRentList(Predicate<PropertyForRent> predicate) {
+        requireNonNull(predicate);
+        filteredPropertiesForRent.setPredicate(predicate);
     }
 
     @Override

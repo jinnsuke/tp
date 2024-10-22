@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
 
 /**
  * The API of the Model component.
@@ -13,6 +15,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<PropertyForSale> PREDICATE_SHOW_ALL_PROPERTIES_FOR_SALE = unused -> true;
+    Predicate<PropertyForRent> PREDICATE_SHOW_ALL_PROPERTIES_FOR_RENT = unused -> true;
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -88,4 +93,16 @@ public interface Model {
     public void sortPersonsAsc();
 
     public void sortPersonsDesc();
+
+    boolean hasPropertyForSale(PropertyForSale propertyForSale);
+
+    void addPropertyForSale(PropertyForSale propertyForSale);
+
+    boolean hasPropertyForRent(PropertyForRent propertyForRent);
+
+    void addPropertyForRent(PropertyForRent propertyForRent);
+
+    void updateFilteredPropertyForSaleList(Predicate<PropertyForSale> predicate);
+
+    void updateFilteredPropertyForRentList(Predicate<PropertyForRent> predicate);
 }

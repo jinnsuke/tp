@@ -2,10 +2,13 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
 
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
@@ -42,4 +45,12 @@ public interface AddressBookStorage {
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
 
+    // New methods for property management
+    void savePropertiesForRent(List<PropertyForRent> properties) throws IOException;
+
+    void savePropertiesForSale(List<PropertyForSale> properties) throws IOException;
+
+    List<PropertyForRent> readPropertiesForRent() throws DataLoadingException;
+
+    List<PropertyForSale> readPropertiesForSale() throws DataLoadingException;
 }

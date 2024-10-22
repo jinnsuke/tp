@@ -20,6 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -29,6 +31,8 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getPropertyForSaleList());
+        assertEquals(Collections.emptyList(), addressBook.getPropertyForRentList());
     }
 
     @Test
@@ -49,7 +53,8 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        // Assuming empty properties for simplicity, you can also add properties if needed
+        AddressBookStub newData = new AddressBookStub(newPersons, Collections.emptyList(), Collections.emptyList());
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -85,24 +90,44 @@ public class AddressBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
+        String expected = AddressBook.class.getCanonicalName()
+                + "{persons="
+                + addressBook.getPersonList()
+                + ", propertiesForSale=" + addressBook.getPropertyForSaleList()
+                + ", propertiesForRent=" + addressBook.getPropertyForRentList()
+                + "}";
+
         assertEquals(expected, addressBook.toString());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose persons and properties lists can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<PropertyForSale> propertiesForSale = FXCollections.observableArrayList();
+        private final ObservableList<PropertyForRent> propertiesForRent = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        AddressBookStub(Collection<Person> persons, Collection<PropertyForSale> propertiesForSale,
+                        Collection<PropertyForRent> propertiesForRent) {
             this.persons.setAll(persons);
+            this.propertiesForSale.setAll(propertiesForSale);
+            this.propertiesForRent.setAll(propertiesForRent);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
         }
-    }
 
+        @Override
+        public ObservableList<PropertyForSale> getPropertyForSaleList() {
+            return propertiesForSale;
+        }
+
+        @Override
+        public ObservableList<PropertyForRent> getPropertyForRentList() {
+            return propertiesForRent;
+        }
+    }
 }
