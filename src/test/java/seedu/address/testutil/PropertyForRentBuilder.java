@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import seedu.address.model.property.PropertyForRent;
 
@@ -17,7 +16,6 @@ public class PropertyForRentBuilder {
     public static final int DEFAULT_BEDROOMS = 2;
     public static final int DEFAULT_BATHROOMS = 1;
     public static final double DEFAULT_PRICE = 1200.00;
-    public static final String DEFAULT_REMARK = "Near MRT";
     public static final LocalDate DEFAULT_AVAILABLE_FROM = LocalDate.now();
 
     private String address;
@@ -27,7 +25,6 @@ public class PropertyForRentBuilder {
     private int numberOfBedrooms;
     private int numberOfBathrooms;
     private double price;
-    private Optional<String> remark;
     private LocalDate availableFrom;
 
     /**
@@ -41,7 +38,6 @@ public class PropertyForRentBuilder {
         numberOfBedrooms = DEFAULT_BEDROOMS;
         numberOfBathrooms = DEFAULT_BATHROOMS;
         price = DEFAULT_PRICE;
-        remark = Optional.of(DEFAULT_REMARK);
         availableFrom = DEFAULT_AVAILABLE_FROM;
     }
 
@@ -123,17 +119,6 @@ public class PropertyForRentBuilder {
     }
 
     /**
-     * Sets the optional {@code remark} about the property.
-     *
-     * @param remark A remark or additional note about the property.
-     * @return This builder instance, with the remark set.
-     */
-    public PropertyForRentBuilder withRemark(String remark) {
-        this.remark = Optional.ofNullable(remark);
-        return this;
-    }
-
-    /**
      * Sets the {@code availableFrom} date when the property is available for rent.
      *
      * @param availableFrom The availability date.
@@ -151,6 +136,6 @@ public class PropertyForRentBuilder {
      */
     public PropertyForRent build() {
         return new PropertyForRent(address, town, propertyType, size,
-                numberOfBedrooms, numberOfBathrooms, price, remark, availableFrom);
+                numberOfBedrooms, numberOfBathrooms, price, availableFrom);
     }
 }

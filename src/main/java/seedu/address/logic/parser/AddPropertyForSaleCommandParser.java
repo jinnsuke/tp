@@ -4,15 +4,13 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BATHROOMS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BEDROOMS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTING_DATE; // Ensure this is imported
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SIZE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOWN;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPropertyForSaleCommand;
@@ -33,7 +31,7 @@ public class AddPropertyForSaleCommandParser implements Parser<AddPropertyForSal
     public AddPropertyForSaleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_ADDRESS, PREFIX_TOWN, PREFIX_PROPERTY_TYPE, PREFIX_SIZE,
-                PREFIX_BEDROOMS, PREFIX_BATHROOMS, PREFIX_PRICE, PREFIX_REMARK, PREFIX_LISTING_DATE
+                PREFIX_BEDROOMS, PREFIX_BATHROOMS, PREFIX_PRICE, PREFIX_LISTING_DATE
         );
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ADDRESS, PREFIX_TOWN, PREFIX_PROPERTY_TYPE,
@@ -45,17 +43,16 @@ public class AddPropertyForSaleCommandParser implements Parser<AddPropertyForSal
         }
 
         String address = argMultimap.getValue(PREFIX_ADDRESS).get();
-        String town = argMultimap.getValue(PREFIX_TOWN).get(); // New parameter
+        String town = argMultimap.getValue(PREFIX_TOWN).get();
         String propertyType = argMultimap.getValue(PREFIX_PROPERTY_TYPE).get();
         double size = ParserUtil.parseDouble(argMultimap.getValue(PREFIX_SIZE).get());
         int bedrooms = ParserUtil.parseInt(argMultimap.getValue(PREFIX_BEDROOMS).get());
         int bathrooms = ParserUtil.parseInt(argMultimap.getValue(PREFIX_BATHROOMS).get());
         double price = ParserUtil.parseDouble(argMultimap.getValue(PREFIX_PRICE).get());
-        String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");
-        LocalDate listingDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_LISTING_DATE).get()); // New parameter
+        LocalDate listingDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_LISTING_DATE).get());
 
         PropertyForSale propertyForSale = new PropertyForSale(
-                address, town, propertyType, size, bedrooms, bathrooms, price, Optional.of(remark), listingDate
+                address, town, propertyType, size, bedrooms, bathrooms, price, listingDate
         );
 
         return new AddPropertyForSaleCommand(propertyForSale);

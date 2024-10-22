@@ -102,4 +102,3 @@ class ModelStubWithPropertyForRent extends ModelStub {
         return this.property.equals(property);
     }
 }
-

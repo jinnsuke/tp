@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import seedu.address.model.property.PropertyForSale;
 
@@ -17,7 +16,6 @@ public class PropertyForSaleBuilder {
     public static final int DEFAULT_BEDROOMS = 3;
     public static final int DEFAULT_BATHROOMS = 2;
     public static final double DEFAULT_PRICE = 1500000.00;
-    public static final String DEFAULT_REMARK = "Prime Location";
     public static final LocalDate DEFAULT_LISTING_DATE = LocalDate.now();
 
     private String address;
@@ -27,7 +25,6 @@ public class PropertyForSaleBuilder {
     private int numberOfBedrooms;
     private int numberOfBathrooms;
     private double price;
-    private Optional<String> remark;
     private LocalDate listingDate;
 
     /**
@@ -41,7 +38,6 @@ public class PropertyForSaleBuilder {
         numberOfBedrooms = DEFAULT_BEDROOMS;
         numberOfBathrooms = DEFAULT_BATHROOMS;
         price = DEFAULT_PRICE;
-        remark = Optional.of(DEFAULT_REMARK);
         listingDate = DEFAULT_LISTING_DATE;
     }
 
@@ -123,17 +119,6 @@ public class PropertyForSaleBuilder {
     }
 
     /**
-     * Sets the optional {@code remark} about the property.
-     *
-     * @param remark A remark or additional note about the property.
-     * @return This builder instance, with the remark set.
-     */
-    public PropertyForSaleBuilder withRemark(String remark) {
-        this.remark = Optional.ofNullable(remark);
-        return this;
-    }
-
-    /**
      * Sets the {@code listingDate} when the property was listed for sale.
      *
      * @param listingDate The date the property was listed.
@@ -151,6 +136,6 @@ public class PropertyForSaleBuilder {
      */
     public PropertyForSale build() {
         return new PropertyForSale(address, town, propertyType, size,
-                numberOfBedrooms, numberOfBathrooms, price, remark, listingDate);
+                numberOfBedrooms, numberOfBathrooms, price, listingDate);
     }
 }

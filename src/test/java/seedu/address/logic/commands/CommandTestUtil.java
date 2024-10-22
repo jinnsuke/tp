@@ -34,7 +34,24 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+    // PREVIOUS STUFF
+    public static final String INVALID_DATE_AGAIN_DESC = " " + PREFIX_BIRTHDAY + "2024-13-01";
+    public static final String INVALID_BIRTHDAY_EARLY_DESC = " " + PREFIX_BIRTHDAY + "1908-04-22";
+    public static final String INVALID_BIRTHDAY_LATE_DESC = " " + PREFIX_BIRTHDAY + LocalDate.now()
+            .plusDays(1).toString();
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_DATE_DESC = " " + PREFIX_BIRTHDAY + "2002-02-30"; // empty string not allowed
+    public static final String VALID_TAG_HUSBAND = "husband";
+    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String LOG_MESSAGE_DESC = " " + PREFIX_LOG;
 
+    // Person attributes
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -47,9 +64,19 @@ public class CommandTestUtil {
     public static final String VALID_REMARK_BOB = "";
     public static final String VALID_BIRTHDAY_AMY = "2000-03-15";
     public static final String VALID_BIRTHDAY_BOB = "1999-01-27";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
 
+    // Property attributes
+    public static final String VALID_TOWN_AMY = "Downtown"; // Example valid town
+    public static final String VALID_TOWN_BOB = "Uptown"; // Example valid town for Bob
+    public static final String VALID_TYPE_AMY = "Condo"; // Example valid type
+    public static final String VALID_TYPE_BOB = "Apartment"; // Example valid type for Bob
+    public static final String VALID_SIZE_AMY = "100.5"; // Example valid size
+    public static final String VALID_SIZE_BOB = "200.0"; // Example valid size for Bob
+    public static final String VALID_PRICE_AMY = "3000.0"; // Example valid price
+    public static final String VALID_PRICE_BOB = "4500.0"; // Example valid price for Bob
+    public static final String VALID_LISTING_DATE = "2024-11-15"; // Example valid listing date
+
+    // Descriptors for Person attributes
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -63,46 +90,16 @@ public class CommandTestUtil {
     public static final String BIRTHDAY_DESC_AMY = " " + PREFIX_BIRTHDAY + VALID_BIRTHDAY_AMY;
     public static final String BIRTHDAY_DESC_BOB = " " + PREFIX_BIRTHDAY + VALID_BIRTHDAY_BOB;
 
-
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-    public static final String LOG_MESSAGE_DESC = " " + PREFIX_LOG;
-    public static final String VALID_REMARK_ALICE = "like apples";
-    public static final String VALID_REMARK_BENSON = "good friend";
-    public static final String VALID_REMARK_CARL = "enjoys hiking";
-    public static final String VALID_REMARK_DANIEL = "plays football";
-    public static final String VALID_REMARK_ELLE = "loves cooking";
-    public static final String VALID_REMARK_FIONA = "travel enthusiast";
-    public static final String VALID_REMARK_GEORGE = "avid reader";
-    public static final String VALID_REMARK_HOON = "loves animals";
-    public static final String VALID_REMARK_IDA = "enjoys painting";
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_DATE_DESC = " " + PREFIX_BIRTHDAY + "2002-02-30"; // empty string not allowed
-    // for birthdays
-    public static final String INVALID_DATE_AGAIN_DESC = " " + PREFIX_BIRTHDAY + "2024-13-01";
-    public static final String INVALID_BIRTHDAY_EARLY_DESC = " " + PREFIX_BIRTHDAY + "1908-04-22";
-    public static final String INVALID_BIRTHDAY_LATE_DESC = " " + PREFIX_BIRTHDAY + LocalDate.now()
-            .plusDays(1).toString();
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
-    public static final String VALID_TOWN_AMY = "Downtown"; // Example valid town
-    public static final String VALID_TOWN_BOB = "Uptown"; // Example valid town for Bob
-    public static final String VALID_TYPE_AMY = "Condo"; // Example valid type
-    public static final String VALID_SIZE_AMY = "100.5"; // Example valid size
-    public static final String VALID_PRICE_AMY = "3000.0"; // Example valid price
-
-    // Add new descriptors for properties
+    // Descriptors for Property attributes
     public static final String TOWN_DESC_AMY = " " + PREFIX_TOWN + VALID_TOWN_AMY;
     public static final String TOWN_DESC_BOB = " " + PREFIX_TOWN + VALID_TOWN_BOB;
-    public static final String TYPE_DESC = " " + PREFIX_PROPERTY_TYPE + VALID_TYPE_AMY;
-    public static final String SIZE_DESC = " " + PREFIX_SIZE + VALID_SIZE_AMY; // Adjust according to your needs
-    public static final String PRICE_DESC = " " + PREFIX_PRICE + VALID_PRICE_AMY; // Adjust according to your needs
-    public static final String VALID_LISTING_DATE = "2024-11-15";
+    public static final String TYPE_DESC_AMY = " " + PREFIX_PROPERTY_TYPE + VALID_TYPE_AMY;
+    public static final String TYPE_DESC_BOB = " " + PREFIX_PROPERTY_TYPE + VALID_TYPE_BOB;
+    public static final String SIZE_DESC_AMY = " " + PREFIX_SIZE + VALID_SIZE_AMY; // Adjust according to your needs
+    public static final String SIZE_DESC_BOB = " " + PREFIX_SIZE + VALID_SIZE_BOB; // Adjust according to your needs
+    public static final String PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_PRICE_AMY; // Adjust according to your needs
+    public static final String PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_PRICE_BOB; // Adjust according to your needs
     public static final String LISTING_DATE_DESC = " " + PREFIX_LISTING_DATE + VALID_LISTING_DATE;
-
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

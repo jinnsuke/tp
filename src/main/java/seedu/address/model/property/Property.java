@@ -1,7 +1,6 @@
 package seedu.address.model.property;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Represents a Property with various details such as address, town, type, size, and price.
@@ -14,7 +13,6 @@ public class Property {
     private final int numberOfBedrooms;
     private final int numberOfBathrooms;
     private final double price;
-    private final Optional<String> remark;
 
     /**
      * Constructs a {@code Property} with the specified details.
@@ -26,11 +24,9 @@ public class Property {
      * @param numberOfBedrooms The number of bedrooms in the property.
      * @param numberOfBathrooms The number of bathrooms in the property.
      * @param price The price of the property.
-     * @param remark An optional remark about the property.
      */
     public Property(String address, String town, String propertyType, double size,
-                    int numberOfBedrooms, int numberOfBathrooms, double price,
-                    Optional<String> remark) {
+                    int numberOfBedrooms, int numberOfBathrooms, double price) {
         this.address = address;
         this.town = town;
         this.propertyType = propertyType;
@@ -38,7 +34,6 @@ public class Property {
         this.numberOfBedrooms = numberOfBedrooms;
         this.numberOfBathrooms = numberOfBathrooms;
         this.price = price;
-        this.remark = remark;
     }
 
     public String getAddress() {
@@ -69,10 +64,6 @@ public class Property {
         return price;
     }
 
-    public Optional<String> getRemark() {
-        return remark;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -88,22 +79,18 @@ public class Property {
                 && Double.compare(property.price, price) == 0
                 && address.equals(property.address)
                 && town.equals(property.town)
-                && propertyType.equals(property.propertyType)
-                && remark.equals(property.remark);
+                && propertyType.equals(property.propertyType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, town, propertyType, size,
-                numberOfBedrooms, numberOfBathrooms, price, remark);
+        return Objects.hash(address, town, propertyType, size, numberOfBedrooms, numberOfBathrooms, price);
     }
 
     @Override
     public String toString() {
         return String.format("Property[address=%s, town=%s, type=%s, size=%.2f, "
-                        + "bedrooms=%d, bathrooms=%d, price=%.2f, remark=%s]",
-                address, town, propertyType, size,
-                numberOfBedrooms, numberOfBathrooms, price,
-                remark.orElse("No remark"));
+                        + "bedrooms=%d, bathrooms=%d, price=%.2f]",
+                address, town, propertyType, size, numberOfBedrooms, numberOfBathrooms, price);
     }
 }

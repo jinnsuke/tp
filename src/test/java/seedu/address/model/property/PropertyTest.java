@@ -3,8 +3,6 @@ package seedu.address.model.property;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -21,8 +19,7 @@ class PropertyTest {
                 85.5,
                 3,
                 2,
-                500000.0,
-                Optional.of("Great view")
+                500000.0
         );
 
         // Check if fields are correctly assigned
@@ -33,7 +30,6 @@ class PropertyTest {
         assertEquals(3, property.getNumberOfBedrooms());
         assertEquals(2, property.getNumberOfBathrooms());
         assertEquals(500000.0, property.getPrice());
-        assertEquals(Optional.of("Great view"), property.getRemark());
     }
 
     @Test
@@ -45,8 +41,7 @@ class PropertyTest {
                 85.5,
                 3,
                 2,
-                500000.0,
-                Optional.of("Great view")
+                500000.0
         );
 
         Property property2 = new Property(
@@ -56,8 +51,7 @@ class PropertyTest {
                 85.5,
                 3,
                 2,
-                500000.0,
-                Optional.of("Great view")
+                500000.0
         );
 
         // Ensure that two properties with identical values are considered equal
@@ -73,8 +67,7 @@ class PropertyTest {
                 85.5,
                 3,
                 2,
-                500000.0,
-                Optional.of("Great view")
+                500000.0
         );
 
         Property property2 = new Property(
@@ -84,8 +77,7 @@ class PropertyTest {
                 120.0,
                 4,
                 3,
-                750000.0,
-                Optional.empty()
+                750000.0
         );
 
         // Ensure that two different properties are not equal
@@ -101,33 +93,13 @@ class PropertyTest {
                 85.5,
                 3,
                 2,
-                500000.0,
-                Optional.of("Great view")
+                500000.0
         );
 
         String expected = "Property[address=123 Main St, town=Central Town, type=Apartment, "
-                + "size=85.50, bedrooms=3, bathrooms=2, price=500000.00, remark=Great view]";
+                + "size=85.50, bedrooms=3, bathrooms=2, price=500000.00]";
 
         assertEquals(expected, property.toString());
-    }
-
-    @Test
-    void testOptionalRemarkEmpty() {
-        Property property = new Property(
-                "123 Main St",
-                "Central Town",
-                "Apartment",
-                85.5,
-                3,
-                2,
-                500000.0,
-                Optional.empty()
-        );
-
-        assertEquals(Optional.empty(), property.getRemark());
-        assertEquals("Property[address=123 Main St, town=Central Town, type=Apartment, "
-                        + "size=85.50, bedrooms=3, bathrooms=2, price=500000.00, remark=No remark]",
-                property.toString());
     }
 
     @Test
@@ -136,22 +108,21 @@ class PropertyTest {
                 "123 Main St",
                 "Central Town",
                 "Apartment",
-                0.0, 0, 0, 0.0, Optional.empty()
+                0.0, 0, 0, 0.0
         );
 
         assertEquals(0.0, property.getSize());
         assertEquals(0, property.getNumberOfBedrooms());
         assertEquals(0, property.getNumberOfBathrooms());
         assertEquals(0.0, property.getPrice());
-        assertEquals(Optional.empty(), property.getRemark());
     }
 
     @Test
     void testHashCodeConsistency() {
         Property property1 = new Property("123 Main St", "Central Town",
-                "Apartment", 85.5, 3, 2, 500000.0, Optional.of("Great view"));
+                "Apartment", 85.5, 3, 2, 500000.0);
         Property property2 = new Property("123 Main St", "Central Town",
-                "Apartment", 85.5, 3, 2, 500000.0, Optional.of("Great view"));
+                "Apartment", 85.5, 3, 2, 500000.0);
 
         assertEquals(property1.hashCode(), property2.hashCode());
     }
@@ -159,7 +130,7 @@ class PropertyTest {
     @Test
     void testEqualsNullComparison() {
         Property property = new Property("123 Main St", "Central Town",
-                "Apartment", 85.5, 3, 2, 500000.0, Optional.of("Great view"));
+                "Apartment", 85.5, 3, 2, 500000.0);
 
         assertNotEquals(property, null);
     }
@@ -167,23 +138,23 @@ class PropertyTest {
     @Test
     void testEqualsDifferentClass() {
         Property property = new Property("123 Main St", "Central Town",
-                "Apartment", 85.5, 3, 2, 500000.0, Optional.of("Great view"));
+                "Apartment", 85.5, 3, 2, 500000.0);
 
         assertNotEquals(property, "Not a Property");
     }
 
     @Test
-    void testPropertyWithDifferentRemarks() {
+    void testPropertyWithDifferentSizes() {
         Property property1 = new Property("123 Main St", "Central Town",
-                "Apartment", 85.5, 3, 2, 500000.0, Optional.of("Great view"));
+                "Apartment", 85.5, 3, 2, 500000.0);
         Property property2 = new Property("123 Main St", "Central Town",
-                "Apartment", 85.5, 3, 2, 500000.0, Optional.of("No view"));
+                "Apartment", 90.0, 3, 2, 500000.0);
 
         assertNotEquals(property1, property2);
     }
 
     @Test
-    void testToStringWithEmptyRemark() {
+    void testToStringWithoutRemark() {
         Property property = new Property(
                 "123 Main St",
                 "Central Town",
@@ -191,12 +162,11 @@ class PropertyTest {
                 85.5,
                 3,
                 2,
-                500000.0,
-                Optional.empty()
+                500000.0
         );
 
         String expected = "Property[address=123 Main St, town=Central Town, type=Apartment, "
-                + "size=85.50, bedrooms=3, bathrooms=2, price=500000.00, remark=No remark]";
+                + "size=85.50, bedrooms=3, bathrooms=2, price=500000.00]";
 
         assertEquals(expected, property.toString());
     }

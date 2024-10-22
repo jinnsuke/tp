@@ -102,7 +102,3 @@ class ModelStubWithPropertyForSale extends ModelStub {
         return this.property.equals(property);
     }
 }
-
-
-
-

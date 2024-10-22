@@ -1,7 +1,6 @@
 package seedu.address.model.property;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 /**
  * Represents a Property that is for rent.
@@ -19,13 +18,12 @@ public class PropertyForRent extends Property {
      * @param numberOfBedrooms The number of bedrooms in the property.
      * @param numberOfBathrooms The number of bathrooms in the property.
      * @param price The price of the property.
-     * @param remark An optional remark about the property.
      * @param availableFrom The date the property is available for rent.
      */
     public PropertyForRent(String address, String town, String propertyType, double size,
                            int numberOfBedrooms, int numberOfBathrooms, double price,
-                           Optional<String> remark, LocalDate availableFrom) {
-        super(address, town, propertyType, size, numberOfBedrooms, numberOfBathrooms, price, remark);
+                           LocalDate availableFrom) {
+        super(address, town, propertyType, size, numberOfBedrooms, numberOfBathrooms, price);
         this.availableFrom = availableFrom;
     }
 
@@ -35,7 +33,6 @@ public class PropertyForRent extends Property {
 
     @Override
     public String toString() {
-        return String.format("%s, Available From: %s",
-                super.toString(), availableFrom);
+        return String.format("%s, Available From: %s", super.toString(), availableFrom);
     }
 }

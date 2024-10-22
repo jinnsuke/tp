@@ -7,12 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BATHROOMS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BEDROOMS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SIZE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOWN;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPropertyForRentCommand;
@@ -33,7 +31,7 @@ public class AddPropertyForRentCommandParser implements Parser<AddPropertyForRen
     public AddPropertyForRentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_ADDRESS, PREFIX_TOWN, PREFIX_PROPERTY_TYPE, PREFIX_SIZE,
-                PREFIX_BEDROOMS, PREFIX_BATHROOMS, PREFIX_PRICE, PREFIX_REMARK, PREFIX_AVAILABLE_FROM
+                PREFIX_BEDROOMS, PREFIX_BATHROOMS, PREFIX_PRICE, PREFIX_AVAILABLE_FROM
         );
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ADDRESS, PREFIX_TOWN, PREFIX_PROPERTY_TYPE,
@@ -45,17 +43,16 @@ public class AddPropertyForRentCommandParser implements Parser<AddPropertyForRen
         }
 
         String address = argMultimap.getValue(PREFIX_ADDRESS).get();
-        String town = argMultimap.getValue(PREFIX_TOWN).get(); // New field
+        String town = argMultimap.getValue(PREFIX_TOWN).get();
         String propertyType = argMultimap.getValue(PREFIX_PROPERTY_TYPE).get();
         double size = ParserUtil.parseDouble(argMultimap.getValue(PREFIX_SIZE).get());
         int bedrooms = ParserUtil.parseInt(argMultimap.getValue(PREFIX_BEDROOMS).get());
         int bathrooms = ParserUtil.parseInt(argMultimap.getValue(PREFIX_BATHROOMS).get());
         double price = ParserUtil.parseDouble(argMultimap.getValue(PREFIX_PRICE).get());
-        Optional<String> remark = Optional.ofNullable(argMultimap.getValue(PREFIX_REMARK).orElse(""));
-        LocalDate availableFrom = ParserUtil.parseDate(argMultimap.getValue(PREFIX_AVAILABLE_FROM).get()); // New field
+        LocalDate availableFrom = ParserUtil.parseDate(argMultimap.getValue(PREFIX_AVAILABLE_FROM).get());
 
         PropertyForRent propertyForRent = new PropertyForRent(
-                address, town, propertyType, size, bedrooms, bathrooms, price, remark, availableFrom
+                address, town, propertyType, size, bedrooms, bathrooms, price, availableFrom
         );
 
         return new AddPropertyForRentCommand(propertyForRent);

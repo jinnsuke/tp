@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,7 +22,6 @@ class JsonAdaptedPropertyForRent {
     private final int numberOfBedrooms;
     private final int numberOfBathrooms;
     private final double price;
-    private final String remark;
     private final String availableFrom;
 
     /**
@@ -38,7 +36,6 @@ class JsonAdaptedPropertyForRent {
             @JsonProperty("numberOfBedrooms") int numberOfBedrooms,
             @JsonProperty("numberOfBathrooms") int numberOfBathrooms,
             @JsonProperty("price") double price,
-            @JsonProperty("remark") String remark,
             @JsonProperty("availableFrom") String availableFrom) {
         this.address = address;
         this.town = town;
@@ -47,7 +44,6 @@ class JsonAdaptedPropertyForRent {
         this.numberOfBedrooms = numberOfBedrooms;
         this.numberOfBathrooms = numberOfBathrooms;
         this.price = price;
-        this.remark = remark;
         this.availableFrom = availableFrom;
     }
 
@@ -62,8 +58,7 @@ class JsonAdaptedPropertyForRent {
         numberOfBedrooms = source.getNumberOfBedrooms();
         numberOfBathrooms = source.getNumberOfBathrooms();
         price = source.getPrice();
-        remark = source.getRemark().orElse(null);
-        availableFrom = source.getAvailableFrom().toString();
+        availableFrom = source.getAvailableFrom().toString(); // Get the available date
     }
 
     /**
@@ -100,7 +95,6 @@ class JsonAdaptedPropertyForRent {
             throw new IllegalValueException("Price cannot be negative.");
         }
 
-        Optional<String> modelRemark = Optional.ofNullable(remark);
         LocalDate modelAvailableFrom;
 
         try {
@@ -109,8 +103,9 @@ class JsonAdaptedPropertyForRent {
             throw new IllegalValueException("Invalid date format for availableFrom.");
         }
 
+        // Create a new PropertyForRent object without the remark
         return new PropertyForRent(address, town, propertyType, size,
                 numberOfBedrooms, numberOfBathrooms, price,
-                modelRemark, modelAvailableFrom);
+                modelAvailableFrom);
     }
 }

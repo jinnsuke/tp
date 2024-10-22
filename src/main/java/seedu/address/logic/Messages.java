@@ -51,8 +51,6 @@ public class Messages {
                 .append(person.getEmail())
                 .append("; Address: ")
                 .append(person.getAddress())
-                .append("; Remark: ")
-                .append(person.getRemark())
                 .append("; Birthday: ")
                 .append(person.getBirthday().toString())
                 .append("; Tags: ");
@@ -66,11 +64,10 @@ public class Messages {
     public static String format(PropertyForRent property) {
         return String.format(
                 "Property for Rent: %s, Town: %s, Type: %s, Size: %.2f sqm, Bedrooms: %d, Bathrooms: %d, "
-                        + "Price: $%.2f, Available From: %s, Remark: %s",
+                        + "Price: $%.2f, Available From: %s",
                 property.getAddress(), property.getTown(), property.getPropertyType(),
                 property.getSize(), property.getNumberOfBedrooms(), property.getNumberOfBathrooms(),
-                property.getPrice(), property.getAvailableFrom(),
-                property.getRemark().orElse("N/A")
+                property.getPrice(), property.getAvailableFrom()
         );
     }
 
@@ -80,11 +77,10 @@ public class Messages {
     public static String format(PropertyForSale property) {
         return String.format(
                 "Property for Sale: %s, Town: %s, Type: %s, Size: %.2f sqm, Bedrooms: %d, Bathrooms: %d, "
-                        + "Price: $%.2f, Listing Date: %s, Remark: %s",
+                        + "Price: $%.2f, Listing Date: %s",
                 property.getAddress(), property.getTown(), property.getPropertyType(),
                 property.getSize(), property.getNumberOfBedrooms(), property.getNumberOfBathrooms(),
-                property.getPrice(), property.getListingDate(),
-                property.getRemark().orElse("N/A")
+                property.getPrice(), property.getListingDate()
         );
     }
 }

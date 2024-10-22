@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BATHROOMS; // Move this above PREFIX_BEDROOMS
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BATHROOMS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BEDROOMS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SIZE;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -29,25 +28,22 @@ public class AddPropertyForSaleCommand extends Command {
             + PREFIX_SIZE + "SIZE "
             + PREFIX_BEDROOMS + "BEDROOMS "
             + PREFIX_BATHROOMS + "BATHROOMS "
-            + PREFIX_PRICE + "PRICE "
-            + "[" + PREFIX_REMARK + "REMARK]\n"
+            + PREFIX_PRICE + "PRICE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ADDRESS + "123 Main St "
             + PREFIX_PROPERTY_TYPE + "House "
             + PREFIX_SIZE + "150.0 "
             + PREFIX_BEDROOMS + "3 "
             + PREFIX_BATHROOMS + "2 "
-            + PREFIX_PRICE + "300000.0 "
-            + PREFIX_REMARK + "Newly renovated";
+            + PREFIX_PRICE + "300000.0";
 
     public static final String MESSAGE_SUCCESS = "New property for sale added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the list";
-    public static final String MESSAGE_MISSING_FIELD = "Some required fields are missing."; // Define a suitable message
+    public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the list.";
 
     private final PropertyForSale toAdd;
 
     /**
-     * Creates an AddPropertyForSaleCommand to add the specified {@code PropertyForSale}
+     * Creates an AddPropertyForSaleCommand to add the specified {@code PropertyForSale}.
      */
     public AddPropertyForSaleCommand(PropertyForSale propertyForSale) {
         requireNonNull(propertyForSale);
@@ -68,23 +64,12 @@ public class AddPropertyForSaleCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof AddPropertyForSaleCommand)) {
-            return false;
-        }
-
-        AddPropertyForSaleCommand otherAddCommand = (AddPropertyForSaleCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd);
+        return other == this || (other instanceof AddPropertyForSaleCommand
+                && toAdd.equals(((AddPropertyForSaleCommand) other).toAdd));
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("toAdd", toAdd)
-                .toString();
+        return new ToStringBuilder(this).add("toAdd", toAdd).toString();
     }
 }

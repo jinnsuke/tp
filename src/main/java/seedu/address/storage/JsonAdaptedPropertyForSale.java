@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,7 +21,6 @@ class JsonAdaptedPropertyForSale {
     private final int numberOfBedrooms;
     private final int numberOfBathrooms;
     private final double price;
-    private final Optional<String> remark;
     private final String listingDate; // String representation of the LocalDate
 
     /**
@@ -36,7 +34,6 @@ class JsonAdaptedPropertyForSale {
                                       @JsonProperty("numberOfBedrooms") int numberOfBedrooms,
                                       @JsonProperty("numberOfBathrooms") int numberOfBathrooms,
                                       @JsonProperty("price") double price,
-                                      @JsonProperty("remark") String remark,
                                       @JsonProperty("listingDate") String listingDate) {
         this.address = address;
         this.town = town;
@@ -45,7 +42,6 @@ class JsonAdaptedPropertyForSale {
         this.numberOfBedrooms = numberOfBedrooms;
         this.numberOfBathrooms = numberOfBathrooms;
         this.price = price;
-        this.remark = Optional.ofNullable(remark);
         this.listingDate = listingDate;
     }
 
@@ -60,8 +56,7 @@ class JsonAdaptedPropertyForSale {
         numberOfBedrooms = source.getNumberOfBedrooms();
         numberOfBathrooms = source.getNumberOfBathrooms();
         price = source.getPrice();
-        remark = source.getRemark(); // Convert Optional<String> to String
-        listingDate = source.getListingDate().toString();
+        listingDate = source.getListingDate().toString(); // Convert LocalDate to String
     }
 
     /**
@@ -80,13 +75,14 @@ class JsonAdaptedPropertyForSale {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "propertyType"));
         }
 
-        // Add validation for other fields as needed
+        // Validate the listing date
         if (listingDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "listingDate"));
         }
 
         LocalDate modelListingDate = LocalDate.parse(listingDate);
+        // Create a new PropertyForSale object without the remark
         return new PropertyForSale(address, town, propertyType, size,
-                numberOfBedrooms, numberOfBathrooms, price, remark, modelListingDate);
+                numberOfBedrooms, numberOfBathrooms, price, modelListingDate);
     }
 }
