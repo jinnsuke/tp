@@ -42,6 +42,7 @@ public class AddPropertyForSaleCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New property for sale added: %1$s";
     public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the list";
+    public static final String MESSAGE_MISSING_FIELD = "Some required fields are missing."; // Define a suitable message
 
     private final PropertyForSale toAdd;
 

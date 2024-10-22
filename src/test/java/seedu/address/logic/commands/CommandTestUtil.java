@@ -10,6 +10,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TOWN; // Add this line for the town prefix
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE; // Assuming you have a prefix for type
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE; // Assuming you have a prefix for price
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SIZE; // Assuming you have a prefix for size
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTING_DATE; // Assuming you have a prefix for size
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
@@ -23,6 +28,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.property.PropertyForRent; // Assuming you will also need this import
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -82,6 +88,22 @@ public class CommandTestUtil {
     public static final String INVALID_BIRTHDAY_LATE_DESC = " " + PREFIX_BIRTHDAY + LocalDate.now()
             .plusDays(1).toString();
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String VALID_TOWN_AMY = "Downtown"; // Example valid town
+    public static final String VALID_TOWN_BOB = "Uptown"; // Example valid town for Bob
+    public static final String VALID_TYPE_AMY = "Condo"; // Example valid type
+    public static final String VALID_SIZE_AMY = "100.5"; // Example valid size
+    public static final String VALID_PRICE_AMY = "3000.0"; // Example valid price
+
+    // Add new descriptors for properties
+    public static final String TOWN_DESC_AMY = " " + PREFIX_TOWN + VALID_TOWN_AMY;
+    public static final String TOWN_DESC_BOB = " " + PREFIX_TOWN + VALID_TOWN_BOB;
+    public static final String TYPE_DESC = " " + PREFIX_PROPERTY_TYPE + VALID_TYPE_AMY; // Adjust according to your needs
+    public static final String SIZE_DESC = " " + PREFIX_SIZE + VALID_SIZE_AMY; // Adjust according to your needs
+    public static final String PRICE_DESC = " " + PREFIX_PRICE + VALID_PRICE_AMY; // Adjust according to your needs
+    public static final String VALID_LISTING_DATE = "2024-11-15";
+    public static final String LISTING_DATE_DESC = " " + PREFIX_LISTING_DATE + VALID_LISTING_DATE; // Assuming you have a prefix for listing date
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
