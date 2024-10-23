@@ -3,18 +3,21 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AVAILABLE_FROM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BATHROOMS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BEDROOMS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTING_DATE; // Assuming you have a prefix for size
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE; // Assuming you have a prefix for price
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE; // Assuming you have a prefix for type
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SIZE; // Assuming you have a prefix for size
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SIZE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOWN; // Add this line for the town prefix
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TOWN;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
@@ -50,6 +53,15 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String LOG_MESSAGE_DESC = " " + PREFIX_LOG;
+    public static final String VALID_REMARK_ALICE = "like apples";
+    public static final String VALID_REMARK_BENSON = "good friend";
+    public static final String VALID_REMARK_CARL = "enjoys hiking";
+    public static final String VALID_REMARK_DANIEL = "plays football";
+    public static final String VALID_REMARK_ELLE = "loves cooking";
+    public static final String VALID_REMARK_FIONA = "travel enthusiast";
+    public static final String VALID_REMARK_GEORGE = "avid reader";
+    public static final String VALID_REMARK_HOON = "loves animals";
+    public static final String VALID_REMARK_IDA = "enjoys painting";
 
     // Person attributes
     public static final String VALID_NAME_AMY = "Amy Bee";
@@ -65,16 +77,32 @@ public class CommandTestUtil {
     public static final String VALID_BIRTHDAY_AMY = "2000-03-15";
     public static final String VALID_BIRTHDAY_BOB = "1999-01-27";
 
-    // Property attributes
-    public static final String VALID_TOWN_AMY = "Downtown"; // Example valid town
-    public static final String VALID_TOWN_BOB = "Uptown"; // Example valid town for Bob
-    public static final String VALID_TYPE_AMY = "Condo"; // Example valid type
-    public static final String VALID_TYPE_BOB = "Apartment"; // Example valid type for Bob
-    public static final String VALID_SIZE_AMY = "100.5"; // Example valid size
-    public static final String VALID_SIZE_BOB = "200.0"; // Example valid size for Bob
-    public static final String VALID_PRICE_AMY = "3000.0"; // Example valid price
-    public static final String VALID_PRICE_BOB = "4500.0"; // Example valid price for Bob
-    public static final String VALID_LISTING_DATE = "2024-11-15"; // Example valid listing date
+    // Property attributes for Amy
+    public static final String VALID_PROPERTY_ADDRESS_AMY = "123, Downtown Ave";
+    public static final String VALID_TOWN_AMY = "Downtown";
+    public static final String VALID_TYPE_AMY = "Condo";
+    public static final double VALID_SIZE_AMY = 100.5;
+    public static final int VALID_ROOM_COUNT_AMY = 2;
+    public static final int VALID_BATHROOM_COUNT_AMY = 1;
+    public static final double VALID_PRICE_AMY = 3000.0;
+
+    // Property attributes for Bob
+    public static final String VALID_PROPERTY_ADDRESS_BOB = "456, Uptown St";
+    public static final String VALID_TOWN_BOB = "Uptown";
+    public static final String VALID_TYPE_BOB = "Apartment";
+    public static final double VALID_SIZE_BOB = 200.0;
+    public static final int VALID_ROOM_COUNT_BOB = 3;
+    public static final int VALID_BATHROOM_COUNT_BOB = 2;
+    public static final double VALID_PRICE_BOB = 4500.0;
+
+    // Common attribute
+    public static final LocalDate VALID_LISTING_DATE = LocalDate.of(2024, 11, 15);
+    public static final LocalDate VALID_AVAILABLE_FROM = LocalDate.of(2024, 11, 15);
+
+    // Invalid attributes
+    public static final String INVALID_PRICE_DESC = "pr/-1.5 "; // Negative price
+    public static final String INVALID_SIZE_DESC = "s/0 "; // Zero size
+
 
     // Descriptors for Person attributes
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -90,16 +118,27 @@ public class CommandTestUtil {
     public static final String BIRTHDAY_DESC_AMY = " " + PREFIX_BIRTHDAY + VALID_BIRTHDAY_AMY;
     public static final String BIRTHDAY_DESC_BOB = " " + PREFIX_BIRTHDAY + VALID_BIRTHDAY_BOB;
 
-    // Descriptors for Property attributes
+    // Descriptors for Amy's Property
+    public static final String PROPERTY_ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_PROPERTY_ADDRESS_AMY;
     public static final String TOWN_DESC_AMY = " " + PREFIX_TOWN + VALID_TOWN_AMY;
-    public static final String TOWN_DESC_BOB = " " + PREFIX_TOWN + VALID_TOWN_BOB;
     public static final String TYPE_DESC_AMY = " " + PREFIX_PROPERTY_TYPE + VALID_TYPE_AMY;
+    public static final String SIZE_DESC_AMY = " " + PREFIX_SIZE + VALID_SIZE_AMY;
+    public static final String ROOM_COUNT_DESC_AMY = " " + PREFIX_BEDROOMS + VALID_ROOM_COUNT_AMY;
+    public static final String BATHROOM_COUNT_DESC_AMY = " " + PREFIX_BATHROOMS + VALID_BATHROOM_COUNT_AMY;
+    public static final String PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_PRICE_AMY;
+    public static final String LISTING_DATE_DESC_AMY = " " + PREFIX_LISTING_DATE + VALID_LISTING_DATE;
+    public static final String AVAILABLE_FROM_DESC_AMY = " " + PREFIX_AVAILABLE_FROM + VALID_AVAILABLE_FROM;
+
+    // Descriptors for Bob's Property
+    public static final String PROPERTY_ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_PROPERTY_ADDRESS_BOB;
+    public static final String TOWN_DESC_BOB = " " + PREFIX_TOWN + VALID_TOWN_BOB;
     public static final String TYPE_DESC_BOB = " " + PREFIX_PROPERTY_TYPE + VALID_TYPE_BOB;
-    public static final String SIZE_DESC_AMY = " " + PREFIX_SIZE + VALID_SIZE_AMY; // Adjust according to your needs
-    public static final String SIZE_DESC_BOB = " " + PREFIX_SIZE + VALID_SIZE_BOB; // Adjust according to your needs
-    public static final String PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_PRICE_AMY; // Adjust according to your needs
-    public static final String PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_PRICE_BOB; // Adjust according to your needs
-    public static final String LISTING_DATE_DESC = " " + PREFIX_LISTING_DATE + VALID_LISTING_DATE;
+    public static final String SIZE_DESC_BOB = " " + PREFIX_SIZE + VALID_SIZE_BOB;
+    public static final String ROOM_COUNT_DESC_BOB = " " + PREFIX_BEDROOMS + VALID_ROOM_COUNT_BOB;
+    public static final String BATHROOM_COUNT_DESC_BOB = " " + PREFIX_BATHROOMS + VALID_BATHROOM_COUNT_BOB;
+    public static final String PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_PRICE_BOB;
+    public static final String LISTING_DATE_DESC_BOB = " " + PREFIX_LISTING_DATE + VALID_LISTING_DATE;
+    public static final String AVAILABLE_FROM_DESC_BOB = " " + PREFIX_AVAILABLE_FROM + VALID_AVAILABLE_FROM;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

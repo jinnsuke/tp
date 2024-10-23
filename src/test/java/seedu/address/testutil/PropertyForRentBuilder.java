@@ -42,6 +42,22 @@ public class PropertyForRentBuilder {
     }
 
     /**
+     * Copies a property.
+     */
+    public PropertyForRentBuilder(PropertyForRent propertyForRent) {
+        address = propertyForRent.getAddress();
+        town = propertyForRent.getTown();
+        propertyType = propertyForRent.getPropertyType();
+        size = propertyForRent.getSize();
+        numberOfBedrooms = propertyForRent.getNumberOfBedrooms();
+        numberOfBathrooms = propertyForRent.getNumberOfBathrooms();
+        price = propertyForRent.getPrice();
+        availableFrom = propertyForRent.getAvailableFrom();
+    }
+
+
+
+    /**
      * Sets the {@code address} of the {@code PropertyForRent} that is being built.
      *
      * @param address The property address.

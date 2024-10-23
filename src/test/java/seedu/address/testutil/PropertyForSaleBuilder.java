@@ -42,6 +42,20 @@ public class PropertyForSaleBuilder {
     }
 
     /**
+     * Copies a property.
+     */
+    public PropertyForSaleBuilder(PropertyForSale propertyForSale) {
+        address = propertyForSale.getAddress();
+        town = propertyForSale.getTown();
+        propertyType = propertyForSale.getPropertyType();
+        size = propertyForSale.getSize();
+        numberOfBedrooms = propertyForSale.getNumberOfBedrooms();
+        numberOfBathrooms = propertyForSale.getNumberOfBathrooms();
+        price = propertyForSale.getPrice();
+        listingDate = propertyForSale.getListingDate();
+    }
+
+    /**
      * Sets the {@code address} of the {@code PropertyForSale} that is being built.
      *
      * @param address The property address.

@@ -1,32 +1,28 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
-import java.time.LocalDate;
+//import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.*;
+        import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalProperties.PROPERTY_FOR_SALE_BOB; // Property for sale
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddPropertyForSaleCommand;
 import seedu.address.model.property.PropertyForSale;
+import seedu.address.testutil.PropertyForSaleBuilder;
 
 public class AddPropertyForSaleCommandParserTest {
-
     private final AddPropertyForSaleCommandParser parser = new AddPropertyForSaleCommandParser();
 
     @Test
-    public void parse_validInput_success() {
-        // Arrange: Create the expected property object without a remark
-        PropertyForSale expectedProperty = new PropertyForSale(
-                "456 Oak St", "West Town", "House", 300.0,
-                4, 3, 800000.0,
-                LocalDate.of(2024, 11, 15)
-        );
+    public void parse_allFieldsPresent_success() {
+        PropertyForSale expectedProperty = new PropertyForSaleBuilder(PROPERTY_FOR_SALE_BOB).build();
 
-        // User input matches the expected property without the remark
-        String userInput = " a/456 Oak St t/West Town pt/House s/300.0 b/4 br/3 p/800000.0 "
-                + "d/2024-11-15";
-
-        // Act & Assert: Ensure the parser returns the correct command
-        assertParseSuccess(parser, userInput, new AddPropertyForSaleCommand(expectedProperty));
+        // whitespace only preamble
+        assertParseSuccess(parser, PROPERTY_ADDRESS_DESC_BOB + TOWN_DESC_BOB
+                        + TYPE_DESC_BOB + SIZE_DESC_BOB
+                        + ROOM_COUNT_DESC_BOB + BATHROOM_COUNT_DESC_BOB
+                        + PRICE_DESC_BOB + LISTING_DATE_DESC_BOB,
+                new AddPropertyForSaleCommand(expectedProperty));
     }
 }
