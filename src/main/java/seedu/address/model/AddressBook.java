@@ -22,24 +22,25 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniquePropertyForSaleList propertiesForSale; // New list for properties for sale
     private final UniquePropertyForRentList propertiesForRent; // New list for properties for rent
-        /*
-         * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-         * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-         *
-         * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-         *   among constructors.
-         */
-        {
-            persons = new UniquePersonList();
-            propertiesForSale = new UniquePropertyForSaleList();
-            propertiesForRent = new UniquePropertyForRentList();
-        }
 
-        public AddressBook() {}
+    /*
+     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     *
+     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+     * among constructors.
+     */
+    {
+        persons = new UniquePersonList();
+        propertiesForSale = new UniquePropertyForSaleList();
+        propertiesForRent = new UniquePropertyForRentList();
+    }
 
-        /**
-         * Creates an AddressBook using the Persons and Properties in the {@code toBeCopied}.
-         */
+    public AddressBook() {}
+
+    /**
+     * Creates an AddressBook using the Persons and Properties in the {@code toBeCopied}.
+     */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
@@ -62,7 +63,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
     }
 
@@ -111,7 +111,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
         setPersons(newData.getPersonList());
         setPropertiesForSale(newData.getPropertyForSaleList());
         setPropertiesForRent(newData.getPropertyForRentList());
