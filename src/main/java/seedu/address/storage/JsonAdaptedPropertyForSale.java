@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -80,9 +81,14 @@ class JsonAdaptedPropertyForSale {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "listingDate"));
         }
 
-        LocalDate modelListingDate = LocalDate.parse(listingDate);
-        // Create a new PropertyForSale object without the remark
-        return new PropertyForSale(address, town, propertyType, size,
-                numberOfBedrooms, numberOfBathrooms, price, modelListingDate);
+        try {
+            // Attempt to parse the listing date
+            LocalDate modelListingDate = LocalDate.parse(listingDate);
+            return new PropertyForSale(address, town, propertyType, size,
+                    numberOfBedrooms, numberOfBathrooms, price, modelListingDate);
+        } catch (DateTimeParseException e) {
+            // Rethrow as IllegalValueException with a meaningful message
+            throw new IllegalValueException("Invalid date format for listingDate: " + listingDate, e);
+        }
     }
 }

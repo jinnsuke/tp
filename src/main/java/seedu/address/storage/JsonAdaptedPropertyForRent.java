@@ -95,17 +95,19 @@ class JsonAdaptedPropertyForRent {
             throw new IllegalValueException("Price cannot be negative.");
         }
 
-        LocalDate modelAvailableFrom;
+        if (availableFrom == null) {  // Add this null check
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "availableFrom"));
+        }
 
+        LocalDate modelAvailableFrom;
         try {
             modelAvailableFrom = LocalDate.parse(availableFrom);
         } catch (Exception e) {
             throw new IllegalValueException("Invalid date format for availableFrom.");
         }
 
-        // Create a new PropertyForRent object without the remark
+        // Create a new PropertyForRent object
         return new PropertyForRent(address, town, propertyType, size,
-                numberOfBedrooms, numberOfBathrooms, price,
-                modelAvailableFrom);
+                numberOfBedrooms, numberOfBathrooms, price, modelAvailableFrom);
     }
 }
