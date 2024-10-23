@@ -95,7 +95,7 @@ class JsonAdaptedPropertyForRent {
             throw new IllegalValueException("Price cannot be negative.");
         }
 
-        if (availableFrom == null) {  // Add this null check
+        if (availableFrom == null) { // Add this null check
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "availableFrom"));
         }
 
