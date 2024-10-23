@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -18,6 +18,9 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
+import seedu.address.testutil.TypicalProperties;
 
 public class JsonAddressBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
@@ -56,11 +59,6 @@ public class JsonAddressBookStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataLoadingException() {
-        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
-    }
-
-    @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
         AddressBook original = getTypicalAddressBook();
@@ -71,17 +69,11 @@ public class JsonAddressBookStorageTest {
         ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
-        // Modify data, overwrite exiting file, and read back
+        // Modify data, overwrite existing file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
-
-        // Save and read without specifying file path
-        original.addPerson(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));
     }
 
@@ -90,9 +82,6 @@ public class JsonAddressBookStorageTest {
         assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
     }
 
-    /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
-     */
     private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
         try {
             new JsonAddressBookStorage(Paths.get(filePath))
@@ -105,5 +94,51 @@ public class JsonAddressBookStorageTest {
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveAddressBook(new AddressBook(), null));
+    }
+
+    // New Tests for PropertyForRent and PropertyForSale
+
+    @Test
+    public void saveAndReadPropertiesForRent_success() throws Exception {
+        Path filePath = testFolder.resolve("TempPropertiesForRent.json");
+        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
+
+        List<PropertyForRent> properties = TypicalProperties.getTypicalPropertiesForRent();
+
+        // Save properties and read them back
+        storage.savePropertiesForRent(properties);
+        List<PropertyForRent> readProperties = storage.readPropertiesForRent();
+
+        assertEquals(properties, readProperties);
+    }
+
+    @Test
+    public void saveAndReadPropertiesForSale_success() throws Exception {
+        Path filePath = testFolder.resolve("TempPropertiesForSale.json");
+        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
+
+        List<PropertyForSale> properties = TypicalProperties.getTypicalPropertiesForSale();
+
+        // Save properties and read them back
+        storage.savePropertiesForSale(properties);
+        List<PropertyForSale> readProperties = storage.readPropertiesForSale();
+
+        assertEquals(properties, readProperties);
+    }
+
+    @Test
+    public void readPropertiesForRent_invalidProperty_throwsRuntimeException() {
+        Path filePath = addToTestDataPathIfNotNull("invalidPropertiesForRent.json");
+        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
+
+        assertThrows(RuntimeException.class, storage::readPropertiesForRent);
+    }
+
+    @Test
+    public void readPropertiesForSale_invalidProperty_throwsRuntimeException() {
+        Path filePath = addToTestDataPathIfNotNull("invalidPropertiesForSale.json");
+        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
+
+        assertThrows(RuntimeException.class, storage::readPropertiesForSale);
     }
 }

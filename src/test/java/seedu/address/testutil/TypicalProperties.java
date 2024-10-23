@@ -75,4 +75,24 @@ public class TypicalProperties {
                 PROPERTY_FOR_SALE_BOB
         ));
     }
+
+    /**
+     * Returns an {@code List<PropertyForSale>} with all the typical properties for sale.
+     */
+    public static List<PropertyForSale> getTypicalPropertiesForSale() {
+        return new ArrayList<>(Arrays.asList(
+                PROPERTY_FOR_SALE_AMY,
+                PROPERTY_FOR_SALE_BOB
+        ));
+    }
+
+    /**
+     * Returns an {@code List<PropertyForSale>} with all the typical properties for sale.
+     */
+    public static List<PropertyForRent> getTypicalPropertiesForRent() {
+        return new ArrayList<>(Arrays.asList(
+                PROPERTY_FOR_RENT_AMY,
+                PROPERTY_FOR_RENT_BOB
+        ));
+    }
 }
