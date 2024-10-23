@@ -22,18 +22,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniquePropertyForSaleList propertiesForSale; // New list for properties for sale
     private final UniquePropertyForRentList propertiesForRent; // New list for properties for rent
+        /*
+         * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+         * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+         *
+         * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+         *   among constructors.
+         */
+        {
+            persons = new UniquePersonList();
+            propertiesForSale = new UniquePropertyForSaleList();
+            propertiesForRent = new UniquePropertyForRentList();
+        }
 
-    {
-        persons = new UniquePersonList();
-        propertiesForSale = new UniquePropertyForSaleList();
-        propertiesForRent = new UniquePropertyForRentList();
-    }
+        public AddressBook() {}
 
-    public AddressBook() {}
-
-    /**
-     * Creates an AddressBook using the Persons and Properties in the {@code toBeCopied}.
-     */
+        /**
+         * Creates an AddressBook using the Persons and Properties in the {@code toBeCopied}.
+         */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
@@ -110,10 +116,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPropertiesForSale(newData.getPropertyForSaleList());
         setPropertiesForRent(newData.getPropertyForRentList());
     }
-
-    //// person-level operations
-
-    // Existing methods for managing persons...
 
     /**
      * Returns true if a property for sale with the same identity as {@code propertyForSale} exists in the address book.

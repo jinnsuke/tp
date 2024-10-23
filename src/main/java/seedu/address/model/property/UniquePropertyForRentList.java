@@ -73,6 +73,12 @@ public class UniquePropertyForRentList implements Iterable<PropertyForRent> {
         }
     }
 
+    /**
+     * Sets the properties of this list to the specified replacement list of unique properties for rent.
+     *
+     * @param replacement The replacement list of unique properties for rent. Must not be null.
+     * @throws NullPointerException if the specified replacement list is null.
+     */
     public void setProperties(UniquePropertyForRentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
