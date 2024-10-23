@@ -102,6 +102,10 @@ public interface Model {
 
     void addPropertyForRent(PropertyForRent propertyForRent);
 
+    ObservableList<PropertyForSale> getFilteredPropertyForSaleList();
+
+    ObservableList<PropertyForRent> getFilteredPropertyForRentList();
+
     void updateFilteredPropertyForSaleList(Predicate<PropertyForSale> predicate);
 
     void updateFilteredPropertyForRentList(Predicate<PropertyForRent> predicate);

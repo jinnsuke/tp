@@ -191,6 +191,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<PropertyForSale> getFilteredPropertyForSaleList() {
+        return filteredPropertiesForSale; // Assuming you have a field that stores filtered properties for sale
+    }
+
+    @Override
+    public ObservableList<PropertyForRent> getFilteredPropertyForRentList() {
+        return filteredPropertiesForRent; // Assuming you have a field that stores filtered properties for rent
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

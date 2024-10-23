@@ -2,6 +2,8 @@ package seedu.address.testutil;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -25,6 +27,28 @@ public class AddressBookBuilder {
      */
     public AddressBookBuilder withPerson(Person person) {
         addressBook.addPerson(person);
+        return this;
+    }
+
+    /**
+     * Adds a property for sale to the address book.
+     *
+     * @param propertyForSale The property for sale to be added.
+     * @return The current instance of {@code AddressBookBuilder} for method chaining.
+     */
+    public AddressBookBuilder withPropertyForSale(PropertyForSale propertyForSale) {
+        addressBook.addPropertyForSale(propertyForSale);
+        return this;
+    }
+
+    /**
+     * Adds a property for rent to the address book.
+     *
+     * @param propertyForRent The property for rent to be added.
+     * @return The current instance of {@code AddressBookBuilder} for method chaining.
+     */
+    public AddressBookBuilder withPropertyForRent(PropertyForRent propertyForRent) {
+        addressBook.addPropertyForRent(propertyForRent);
         return this;
     }
 

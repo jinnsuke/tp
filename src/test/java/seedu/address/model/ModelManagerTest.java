@@ -4,9 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES_FOR_RENT;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES_FOR_SALE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalProperties.PROPERTY_FOR_RENT_BOB;
+import static seedu.address.testutil.TypicalProperties.PROPERTY_FOR_SALE_BOB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -123,6 +127,102 @@ public class ModelManagerTest {
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        // different userPrefs -> returns false
+        UserPrefs differentUserPrefs = new UserPrefs();
+        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+    }
+
+    // Property Tests
+
+    @Test
+    public void hasPropertyForSale_nullProperty_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasPropertyForSale(null));
+    }
+
+    @Test
+    public void hasPropertyForSale_propertyNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasPropertyForSale(PROPERTY_FOR_SALE_BOB));
+    }
+
+    @Test
+    public void hasPropertyForSale_propertyInAddressBook_returnsTrue() {
+        modelManager.addPropertyForSale(PROPERTY_FOR_SALE_BOB);
+        assertTrue(modelManager.hasPropertyForSale(PROPERTY_FOR_SALE_BOB));
+    }
+
+    @Test
+    public void addPropertyForSale_propertyAddedSuccessfully() {
+        modelManager.addPropertyForSale(PROPERTY_FOR_SALE_BOB);
+        assertTrue(modelManager.hasPropertyForSale(PROPERTY_FOR_SALE_BOB));
+    }
+
+    @Test
+    public void hasPropertyForRent_nullProperty_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasPropertyForRent(null));
+    }
+
+    @Test
+    public void hasPropertyForRent_propertyNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasPropertyForRent(PROPERTY_FOR_RENT_BOB));
+    }
+
+    @Test
+    public void hasPropertyForRent_propertyInAddressBook_returnsTrue() {
+        modelManager.addPropertyForRent(PROPERTY_FOR_RENT_BOB);
+        assertTrue(modelManager.hasPropertyForRent(PROPERTY_FOR_RENT_BOB));
+    }
+
+    @Test
+    public void addPropertyForRent_propertyAddedSuccessfully() {
+        modelManager.addPropertyForRent(PROPERTY_FOR_RENT_BOB);
+        assertTrue(modelManager.hasPropertyForRent(PROPERTY_FOR_RENT_BOB));
+    }
+
+    @Test
+    public void getFilteredPropertyForSaleList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () ->
+                modelManager.getFilteredPropertyForSaleList().remove(0));
+    }
+
+    @Test
+    public void getFilteredPropertyForRentList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () ->
+                modelManager.getFilteredPropertyForRentList().remove(0));
+    }
+
+    @Test
+    public void equals_properties() {
+        AddressBook addressBook = new AddressBookBuilder()
+                .withPerson(ALICE)
+                .withPerson(BENSON)
+                .withPropertyForSale(PROPERTY_FOR_SALE_BOB)
+                .withPropertyForRent(PROPERTY_FOR_RENT_BOB)
+                .build();
+        AddressBook differentAddressBook = new AddressBook();
+        UserPrefs userPrefs = new UserPrefs();
+
+        // same values -> returns true
+        modelManager = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        assertTrue(modelManager.equals(modelManagerCopy));
+
+        // same object -> returns true
+        assertTrue(modelManager.equals(modelManager));
+
+        // null -> returns false
+        assertFalse(modelManager.equals(null));
+
+        // different types -> returns false
+        assertFalse(modelManager.equals(5));
+
+        // different addressBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredPropertyForSaleList(PREDICATE_SHOW_ALL_PROPERTIES_FOR_SALE);
+        modelManager.updateFilteredPropertyForRentList(PREDICATE_SHOW_ALL_PROPERTIES_FOR_RENT);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

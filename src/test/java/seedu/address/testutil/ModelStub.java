@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
@@ -14,8 +17,24 @@ import seedu.address.model.property.PropertyForSale;
 
 /**
  * A default model stub that has all of the methods failing.
+ *
+ * <p>This class is used for testing purposes to simulate the behavior of a model.
+ * It provides a stub implementation for the {@link Model} interface, allowing for
+ * the addition of mock properties for sale and rent while throwing errors for all other operations.</p>
  */
 public class ModelStub implements Model {
+    private final List<PropertyForSale> propertiesForSale;
+    private final List<PropertyForRent> propertiesForRent;
+
+    /**
+     * Constructs a {@code ModelStub} with empty lists for properties for sale and rent.
+     */
+    public ModelStub() {
+        propertiesForSale = new ArrayList<>();
+        propertiesForRent = new ArrayList<>();
+        // You can add mock properties here for testing if necessary
+    }
+
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
@@ -103,7 +122,7 @@ public class ModelStub implements Model {
 
     @Override
     public void addPropertyForSale(PropertyForSale propertyForSale) {
-        throw new AssertionError("This method should not be called.");
+        propertiesForSale.add(propertyForSale); // Store mock property for sale
     }
 
     @Override
@@ -113,7 +132,7 @@ public class ModelStub implements Model {
 
     @Override
     public void addPropertyForRent(PropertyForRent propertyForRent) {
-        throw new AssertionError("This method should not be called.");
+        propertiesForRent.add(propertyForRent); // Store mock property for rent
     }
 
     @Override
@@ -125,5 +144,24 @@ public class ModelStub implements Model {
     public void updateFilteredPropertyForRentList(Predicate<PropertyForRent> predicate) {
         throw new AssertionError("This method should not be called.");
     }
-}
 
+    /**
+     * Returns an observable list of properties for sale in the address book.
+     *
+     * @return An observable list of {@code PropertyForSale} objects.
+     */
+    @Override
+    public ObservableList<PropertyForSale> getFilteredPropertyForSaleList() {
+        return FXCollections.observableArrayList(propertiesForSale);
+    }
+
+    /**
+     * Returns an observable list of properties for rent in the address book.
+     *
+     * @return An observable list of {@code PropertyForRent} objects.
+     */
+    @Override
+    public ObservableList<PropertyForRent> getFilteredPropertyForRentList() {
+        return FXCollections.observableArrayList(propertiesForRent);
+    }
+}
