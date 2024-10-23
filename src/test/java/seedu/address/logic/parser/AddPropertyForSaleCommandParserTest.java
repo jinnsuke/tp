@@ -1,9 +1,15 @@
 package seedu.address.logic.parser;
 
-//import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-        import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalProperties.PROPERTY_FOR_SALE_BOB; // Property for sale
+import static seedu.address.logic.commands.CommandTestUtil.BATHROOM_COUNT_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.LISTING_DATE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PROPERTY_ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.ROOM_COUNT_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.SALE_PRICE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.SIZE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TOWN_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_BOB;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalProperties.PROPERTY_FOR_SALE_BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +28,7 @@ public class AddPropertyForSaleCommandParserTest {
         assertParseSuccess(parser, PROPERTY_ADDRESS_DESC_BOB + TOWN_DESC_BOB
                         + TYPE_DESC_BOB + SIZE_DESC_BOB
                         + ROOM_COUNT_DESC_BOB + BATHROOM_COUNT_DESC_BOB
-                        + PRICE_DESC_BOB + LISTING_DATE_DESC_BOB,
+                        + SALE_PRICE_DESC_BOB + LISTING_DATE_DESC_BOB,
                 new AddPropertyForSaleCommand(expectedProperty));
     }
 }

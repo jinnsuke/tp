@@ -9,7 +9,6 @@ import seedu.address.model.property.Property;
 import seedu.address.model.property.PropertyForRent;
 import seedu.address.model.property.PropertyForSale;
 
-
 /**
  * A utility class containing a list of {@code Property} objects to be used in tests.
  */
@@ -42,22 +41,22 @@ public class TypicalProperties {
     public static final PropertyForSale PROPERTY_FOR_SALE_AMY = new PropertyForSale(
             "123, Downtown Ave", // Address
             "Downtown", // Town
-            "HDB", // Property Type
+            "Condo", // Property Type
             100.5, // Size
             2, // Number of Bedrooms
             1, // Number of Bathrooms
-            350000.0, // Sale Price
+            600000.0, // Sale Price
             LocalDate.of(2024, 11, 15) // Listing Date
     );
 
     public static final PropertyForSale PROPERTY_FOR_SALE_BOB = new PropertyForSale(
             "456, Uptown St", // Address
             "Uptown", // Town
-            "Penthouse", // Property Type
+            "Apartment", // Property Type
             200.0, // Size
             3, // Number of Bedrooms
             2, // Number of Bathrooms
-            1200000.0, // Sale Price
+            800000.0, // Sale Price
             LocalDate.of(2024, 11, 15) // Listing Date
     );
 

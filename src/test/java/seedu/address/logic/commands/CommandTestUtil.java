@@ -84,7 +84,8 @@ public class CommandTestUtil {
     public static final double VALID_SIZE_AMY = 100.5;
     public static final int VALID_ROOM_COUNT_AMY = 2;
     public static final int VALID_BATHROOM_COUNT_AMY = 1;
-    public static final double VALID_PRICE_AMY = 3000.0;
+    public static final double VALID_RENT_PRICE_AMY = 3000.0;
+    public static final double VALID_SALE_PRICE_AMY = 600000.0;
 
     // Property attributes for Bob
     public static final String VALID_PROPERTY_ADDRESS_BOB = "456, Uptown St";
@@ -93,7 +94,8 @@ public class CommandTestUtil {
     public static final double VALID_SIZE_BOB = 200.0;
     public static final int VALID_ROOM_COUNT_BOB = 3;
     public static final int VALID_BATHROOM_COUNT_BOB = 2;
-    public static final double VALID_PRICE_BOB = 4500.0;
+    public static final double VALID_RENT_PRICE_BOB = 4500.0;
+    public static final double VALID_SALE_PRICE_BOB = 800000.0;
 
     // Common attribute
     public static final LocalDate VALID_LISTING_DATE = LocalDate.of(2024, 11, 15);
@@ -125,7 +127,8 @@ public class CommandTestUtil {
     public static final String SIZE_DESC_AMY = " " + PREFIX_SIZE + VALID_SIZE_AMY;
     public static final String ROOM_COUNT_DESC_AMY = " " + PREFIX_BEDROOMS + VALID_ROOM_COUNT_AMY;
     public static final String BATHROOM_COUNT_DESC_AMY = " " + PREFIX_BATHROOMS + VALID_BATHROOM_COUNT_AMY;
-    public static final String PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_PRICE_AMY;
+    public static final String RENT_PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_RENT_PRICE_AMY;
+    public static final String SALE_PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_SALE_PRICE_AMY;
     public static final String LISTING_DATE_DESC_AMY = " " + PREFIX_LISTING_DATE + VALID_LISTING_DATE;
     public static final String AVAILABLE_FROM_DESC_AMY = " " + PREFIX_AVAILABLE_FROM + VALID_AVAILABLE_FROM;
 
@@ -136,10 +139,14 @@ public class CommandTestUtil {
     public static final String SIZE_DESC_BOB = " " + PREFIX_SIZE + VALID_SIZE_BOB;
     public static final String ROOM_COUNT_DESC_BOB = " " + PREFIX_BEDROOMS + VALID_ROOM_COUNT_BOB;
     public static final String BATHROOM_COUNT_DESC_BOB = " " + PREFIX_BATHROOMS + VALID_BATHROOM_COUNT_BOB;
-    public static final String PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_PRICE_BOB;
+    public static final String RENT_PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_RENT_PRICE_BOB;
+    public static final String SALE_PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_SALE_PRICE_BOB;
     public static final String LISTING_DATE_DESC_BOB = " " + PREFIX_LISTING_DATE + VALID_LISTING_DATE;
     public static final String AVAILABLE_FROM_DESC_BOB = " " + PREFIX_AVAILABLE_FROM + VALID_AVAILABLE_FROM;
 
+    // OTHER STUFF
+    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! %1$s";
+    public static final String INVALID_RENT_PRICE_DESC = "r/invalid_price "; // Adjust based on your prefix structure
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
     public static final String VALID_DATE_OF_CREATION = LocalDate.now().toString();
