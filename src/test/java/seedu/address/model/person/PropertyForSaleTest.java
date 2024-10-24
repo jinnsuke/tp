@@ -17,8 +17,8 @@ public class PropertyForSaleTest {
                 150.75, 3, 2, 500000.00
         );
 
-        String expected = "Property at 123 Main Street, Springfield (Condo): " +
-                "150.75 sqm, 3 bed, 2 bath - $500000.00";
+        String expected = "Property at 123 Main Street, Springfield (Condo): "
+                + "150.75 sqm, 3 bed, 2 bath - $500000.00";
         assertEquals(expected, property.toString());
     }
 
