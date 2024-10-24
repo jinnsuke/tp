@@ -40,6 +40,8 @@ public class PropertyList {
         properties.add(property);
     }
 
+    public static PropertyList addProperty(PropertyList originalPropertyList, )
+
     /**
      * Removes the specified property from the list.
      *

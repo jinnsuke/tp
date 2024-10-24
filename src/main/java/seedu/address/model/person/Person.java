@@ -246,7 +246,7 @@ public class Person {
                 && remark.equals(otherPerson.remark)
                 && dateOfCreation.equals(otherPerson.dateOfCreation)
                 && birthday.equals(otherPerson.birthday)
-                && propertyList.equals(otherPerson.propertyList); 
+                && propertyList.equals(otherPerson.propertyList);
     }
 
     @Override
