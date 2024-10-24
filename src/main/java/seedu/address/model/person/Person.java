@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
 
@@ -30,6 +31,8 @@ public class Person {
     private final DateOfCreation dateOfCreation;
     private final History history;
     private final Birthday birthday;
+    private final PropertyList propertyList;
+
     /**
      * array of preset tags, index 0: favourite == 1; archived == -1; default == 0;
      *                       index 1: buyer == 1; seller == 0;
@@ -51,6 +54,7 @@ public class Person {
         this.tags.addAll(tags);
         this.dateOfCreation = new DateOfCreation(LocalDate.now());
         this.history = new History(dateOfCreation.getDateOfCreation());
+        this.propertyList = new PropertyList();
     }
     /**
      * Every field must be present and not null. with non-empty remark and non-empty birthday
@@ -67,6 +71,7 @@ public class Person {
         this.tags.addAll(tags);
         this.dateOfCreation = new DateOfCreation(LocalDate.now());
         this.history = new History(dateOfCreation.getDateOfCreation());
+        this.propertyList = new PropertyList();
     }
 
     /**
@@ -84,6 +89,7 @@ public class Person {
         this.dateOfCreation = dateOfCreation;
         this.history = history;
         this.tags.addAll(tags);
+        this.propertyList = new PropertyList();
     }
 
     /**
@@ -101,6 +107,7 @@ public class Person {
         this.dateOfCreation = dateOfCreation;
         this.history = history;
         this.tags.addAll(tags);
+        this.propertyList = new PropertyList();
     }
 
     /**
@@ -118,6 +125,22 @@ public class Person {
         this.tags.addAll(tags);
         this.dateOfCreation = new DateOfCreation(LocalDate.now());
         this.history = new History(dateOfCreation.getDateOfCreation());
+        this.propertyList = new PropertyList();
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Remark remark,
+                  Set<Tag> tags, PropertyList propertyList) {
+        requireAllNonNull(name, phone, email, address, tags, remark);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.remark = remark;
+        this.birthday = Birthday.EMPTY_BIRTHDAY;
+        this.tags.addAll(tags);
+        this.dateOfCreation = new DateOfCreation(LocalDate.now());
+        this.history = new History(dateOfCreation.getDateOfCreation());
+        this.propertyList = propertyList; // Assign provided PropertyList
     }
 
     public Name getName() {
@@ -168,6 +191,11 @@ public class Person {
         }
         return totalWeight;
     }
+
+    public PropertyList getPropertyList() {
+        return propertyList;
+    }
+
     /**
      * Returns if the person's birthday is within a week from today.
      */
@@ -217,7 +245,8 @@ public class Person {
                 && tags.equals(otherPerson.tags)
                 && remark.equals(otherPerson.remark)
                 && dateOfCreation.equals(otherPerson.dateOfCreation)
-                && birthday.equals(otherPerson.birthday);
+                && birthday.equals(otherPerson.birthday)
+                && propertyList.equals(otherPerson.propertyList); 
     }
 
     @Override
@@ -238,7 +267,7 @@ public class Person {
                 .add("birthday", birthday)
                 .add("dateOfCreation", dateOfCreation)
                 .add("history", history)
+                .add("propertyList", propertyList)
                 .toString();
     }
-
 }
