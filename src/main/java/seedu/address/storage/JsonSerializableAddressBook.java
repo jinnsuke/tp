@@ -12,8 +12,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.property.PropertyForRent; // Import your PropertyForRent model
-import seedu.address.model.property.PropertyForSale; // Import your PropertyForSale model
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

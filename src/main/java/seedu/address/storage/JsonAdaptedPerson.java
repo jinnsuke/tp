@@ -24,6 +24,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.property.PropertyForRent;
+import seedu.address.model.property.PropertyForSale;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -32,6 +34,7 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
     public static final String INVALID_HISTORY_DATE = "History contains entries with dates after the date of creation!";
+
     private final String name;
     private final String phone;
     private final String email;
@@ -41,17 +44,24 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedHistoryEntry> historyEntries = new ArrayList<>();
     private final String birthday;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedPropertyForRent> propertiesForRent = new ArrayList<>();
+    private final List<JsonAdaptedPropertyForSale> propertiesForSale = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("address") String address,
-                             @JsonProperty("remark") String remark, @JsonProperty("birthday") String birthday,
+    public JsonAdaptedPerson(@JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email,
+                             @JsonProperty("address") String address,
+                             @JsonProperty("remark") String remark,
+                             @JsonProperty("birthday") String birthday,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
                              @JsonProperty("dateOfCreation") String dateOfCreation,
-                             @JsonProperty("history") List<JsonAdaptedHistoryEntry> historyEntries) {
+                             @JsonProperty("history") List<JsonAdaptedHistoryEntry> historyEntries,
+                             @JsonProperty("propertiesForRent") List<JsonAdaptedPropertyForRent> propertiesForRent,
+                             @JsonProperty("propertiesForSale") List<JsonAdaptedPropertyForSale> propertiesForSale) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -59,11 +69,18 @@ class JsonAdaptedPerson {
         this.remark = remark;
         this.dateOfCreation = dateOfCreation;
         this.birthday = birthday;
+
         if (tags != null) {
             this.tags.addAll(tags);
         }
         if (historyEntries != null) {
             this.historyEntries.addAll(historyEntries);
+        }
+        if (propertiesForRent != null) {
+            this.propertiesForRent.addAll(propertiesForRent);
+        }
+        if (propertiesForSale != null) {
+            this.propertiesForSale.addAll(propertiesForSale);
         }
     }
 
@@ -77,12 +94,23 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         remark = source.getRemark().value;
         birthday = source.getBirthday().toString();
+
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+
         dateOfCreation = source.getDateOfCreation().toString();
+
         historyEntries.addAll(source.getHistory().getHistoryEntries().entrySet().stream()
                 .map(entry -> new JsonAdaptedHistoryEntry(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList()));
+
+        propertiesForRent.addAll(source.getPropertiesForRent().stream()
+                .map(JsonAdaptedPropertyForRent::new)
+                .collect(Collectors.toList()));
+
+        propertiesForSale.addAll(source.getPropertiesForSale().stream()
+                .map(JsonAdaptedPropertyForSale::new)
                 .collect(Collectors.toList()));
     }
 
@@ -133,23 +161,15 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
         }
         final Remark modelRemark = new Remark(remark);
+
         if (dateOfCreation == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     DateOfCreation.class.getSimpleName()));
         }
-        LocalDate creationDateForChronicleCheck = LocalDate.parse(dateOfCreation);
-        boolean hasEntryInTheFuture;
-        Stream<Boolean> isBeforeStream = historyEntries.stream()
-                .map(e -> e.toDate().isBefore(creationDateForChronicleCheck) || e.toDate().isAfter(LocalDate.now()));
-        hasEntryInTheFuture = isBeforeStream.reduce(false, (a, b) -> a || b);
-        if (hasEntryInTheFuture) {
-            throw new IllegalValueException(INVALID_HISTORY_DATE);
-        }
-        final DateOfCreation modalDateOfCreation = new DateOfCreation(LocalDate.parse(dateOfCreation));
-        final History modelHistory = History.fromJsonEntries(modalDateOfCreation, historyEntries);
+        final LocalDate modelDateOfCreation = LocalDate.parse(dateOfCreation);
+
         if (birthday == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Birthday.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Birthday.class.getSimpleName()));
         }
         if (!Birthday.isValidBirthday(birthday)) {
             throw new IllegalValueException(Birthday.MESSAGE_CONSTRAINTS);
@@ -157,8 +177,19 @@ class JsonAdaptedPerson {
         final Birthday modelBirthday = birthday.isEmpty() ? EMPTY_BIRTHDAY : new Birthday(birthday);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress,
-                modelRemark, modelBirthday, modelTags, modalDateOfCreation, modelHistory);
-    }
 
+        final List<PropertyForRent> modelPropertiesForRent = propertiesForRent.stream()
+                .map(JsonAdaptedPropertyForRent::toModelType)
+                .collect(Collectors.toList());
+
+        final List<PropertyForSale> modelPropertiesForSale = propertiesForSale.stream()
+                .map(JsonAdaptedPropertyForSale::toModelType)
+                .collect(Collectors.toList());
+
+        final History modelHistory = History.fromJsonEntries(modelDateOfCreation, historyEntries);
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark,
+                modelBirthday, modelTags, modelDateOfCreation, modelHistory,
+                modelPropertiesForRent, modelPropertiesForSale);
+    }
 }

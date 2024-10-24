@@ -44,13 +44,4 @@ public interface AddressBookStorage {
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
-
-    // New methods for property management
-    void savePropertiesForRent(List<PropertyForRent> properties) throws IOException;
-
-    void savePropertiesForSale(List<PropertyForSale> properties) throws IOException;
-
-    List<PropertyForRent> readPropertiesForRent() throws DataLoadingException;
-
-    List<PropertyForSale> readPropertiesForSale() throws DataLoadingException;
 }

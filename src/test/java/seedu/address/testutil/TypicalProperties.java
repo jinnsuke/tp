@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.AddressBook;
+import seedu.address.model.person.Person;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.PropertyForRent;
 import seedu.address.model.property.PropertyForSale;
@@ -94,5 +96,24 @@ public class TypicalProperties {
                 PROPERTY_FOR_RENT_AMY,
                 PROPERTY_FOR_RENT_BOB
         ));
+    }
+
+    /**
+     * Returns an {@code AddressBook} with all the typical properties.
+     */
+    public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
+
+        // Add typical properties for sale
+        for (PropertyForSale property : getTypicalPropertiesForSale()) {
+            ab.addPropertyForSale(property);
+        }
+
+        // Add typical properties for rent
+        for (PropertyForRent property : getTypicalPropertiesForRent()) {
+            ab.addPropertyForRent(property);
+        }
+
+        return ab;
     }
 }

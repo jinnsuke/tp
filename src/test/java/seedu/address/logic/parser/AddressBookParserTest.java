@@ -13,9 +13,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.ser.PropertyBuilder;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPropertyForRentCommand;
+import seedu.address.logic.commands.AddPropertyForSaleCommand;
 import seedu.address.logic.commands.BirthdayCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -32,9 +35,11 @@ import seedu.address.model.person.Birthday;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
+import seedu.address.model.property.Property;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.PropertyForRentBuilder;
 
 public class AddressBookParserTest {
 
@@ -45,6 +50,22 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_addPropertyForRent() throws Exception {
+        Property property = new PropertyForRentBuilder().build();
+        AddPropertyForRentCommand command = (AddPropertyForRentCommand)
+                parser.parseCommand(PropertyUtil.getAddPropertyForRentCommand(property));
+        assertEquals(new AddPropertyForRentCommand(property), command);
+    }
+
+    @Test
+    public void parseCommand_addPropertyForSale() throws Exception {
+        Property property = new PropertyBuilder().build();
+        AddPropertyForSaleCommand command = (AddPropertyForSaleCommand)
+                parser.parseCommand(PropertyUtil.getAddPropertyForSaleCommand(property));
+        assertEquals(new AddPropertyForSaleCommand(property), command);
     }
 
     @Test
